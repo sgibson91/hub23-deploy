@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Installing BinderHub with a Local Helm Chart &#8212; Hub23 Deployment Guide</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -31,19 +31,19 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script >
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -54,7 +54,10 @@
     <link rel="next" title="Connect a Container Registry" href="connect-container-registry.html" />
     <link rel="prev" title="Installing BinderHub directly from the Helm Chart" href="installing-binderhub.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -72,13 +75,14 @@
     <a class="navbar-brand text-wrap" href="../index.html">
       
       
+      
       <h1 class="site-logo" id="site-title">Hub23 Deployment Guide</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -461,7 +465,7 @@
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -479,12 +483,12 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#downloading-the-required-secrets">
@@ -628,10 +632,162 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Installing BinderHub with a Local Helm Chart</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#downloading-the-required-secrets">
+   Downloading the Required Secrets
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#writing-the-hub23-chart-helm-chart">
+   Writing the
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     hub23-chart
+    </span>
+   </code>
+   Helm Chart
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-a-directory-to-store-the-chart-in">
+     Create a directory to store the chart in
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-hub23-chart-chart-yaml">
+     Create
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       hub23-chart/Chart.yaml
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-hub23-chart-requirements-yaml">
+     Create
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       hub23-chart/requirements.yaml
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-hub23-chart-values-yaml">
+     Create
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       hub23-chart/values.yaml
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#add-hub23-chart-helmignore">
+     Add
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       hub23-chart/.helmignore
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#configuring-hub23">
+   Configuring Hub23
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-deploy-prod-yaml">
+     Create
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       deploy/prod.yaml
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-deploy-prod-template-yaml">
+     Create
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       deploy/prod-template.yaml
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installing-hub23-chart">
+   Installing
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     hub23-chart
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#update-the-chart-s-dependencies">
+     Update the chart’s dependencies
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#install-the-helm-chart">
+     Install the helm chart
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#upgrading-hub23-chart">
+   Upgrading
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     hub23-chart
+    </span>
+   </code>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Update the chart’s dependencies
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#upgrade-the-helm-chart-itself">
+     Upgrade the helm chart itself
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
-  <div class="section" id="installing-binderhub-with-a-local-helm-chart">
+  <div class="tex2jax_ignore mathjax_ignore section" id="installing-binderhub-with-a-local-helm-chart">
 <span id="content-binderhub-local-chart"></span><h1>Installing BinderHub with a Local Helm Chart<a class="headerlink" href="#installing-binderhub-with-a-local-helm-chart" title="Permalink to this headline">¶</a></h1>
 <p>This documentation walks through the steps required to install a BinderHub using a local helm chart.
 By writing a helm chart that <em>depends</em> on the BinderHub chart, we can later introduce other helm charts to increase the functionality of Hub23.</p>
@@ -655,25 +811,25 @@ By writing a helm chart that <em>depends</em> on the BinderHub chart, we can lat
 </div>
 <div class="section" id="create-hub23-chart-chart-yaml">
 <h3>Create <code class="docutils literal notranslate"><span class="pre">hub23-chart/Chart.yaml</span></code><a class="headerlink" href="#create-hub23-chart-chart-yaml" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hub23-chart</span>
-<span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0.1</span>
-<span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">A meta-chart for the BinderHub deployment on Hub23</span>
-<span class="nt">sources</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">https://github.com/alan-turing-institute/hub23-deploy</span>
-<span class="nt">maintainers</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">your-name</span>
-    <span class="nt">email</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">your-email@whatever.com</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span><span class="w"></span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hub23-chart</span><span class="w"></span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0.1</span><span class="w"></span>
+<span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">A meta-chart for the BinderHub deployment on Hub23</span><span class="w"></span>
+<span class="nt">sources</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/alan-turing-institute/hub23-deploy</span><span class="w"></span>
+<span class="nt">maintainers</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-name</span><span class="w"></span>
+<span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-email@whatever.com</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="create-hub23-chart-requirements-yaml">
 <h3>Create <code class="docutils literal notranslate"><span class="pre">hub23-chart/requirements.yaml</span></code><a class="headerlink" href="#create-hub23-chart-requirements-yaml" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">requirements.yaml</span></code> is where we define which other charts we are dependent on, e.g. BinderHub.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">dependencies</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">binderhub</span>
-  <span class="nt">repository</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://jupyterhub.github.io/helm-chart</span>
-  <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.2.0-1efa7b8</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">dependencies</span><span class="p">:</span><span class="w"></span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binderhub</span><span class="w"></span>
+<span class="w">  </span><span class="nt">repository</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://jupyterhub.github.io/helm-chart</span><span class="w"></span>
+<span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.2.0-1efa7b8</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -684,13 +840,13 @@ By writing a helm chart that <em>depends</em> on the BinderHub chart, we can lat
 <div class="section" id="create-hub23-chart-values-yaml">
 <h3>Create <code class="docutils literal notranslate"><span class="pre">hub23-chart/values.yaml</span></code><a class="headerlink" href="#create-hub23-chart-values-yaml" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">values.yaml</span></code> is where we define the default values of our chart.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">rbac</span><span class="p">:</span>
-  <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">rbac</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 
-<span class="nt">binderhub</span><span class="p">:</span>
-  <span class="nt">config</span><span class="p">:</span>
-    <span class="nt">BinderHub</span><span class="p">:</span>
-      <span class="nt">use_registry</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">binderhub</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">BinderHub</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">use_registry</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -709,13 +865,13 @@ Add the <a class="reference external" href="https://github.com/helm/helm/blob/ma
 <div class="section" id="create-deploy-prod-yaml">
 <h3>Create <code class="docutils literal notranslate"><span class="pre">deploy/prod.yaml</span></code><a class="headerlink" href="#create-deploy-prod-yaml" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">deploy/prod.yaml</span></code> is where we will overwrite the chart with our non-secret values.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">projectName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">hub23</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">projectName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hub23</span><span class="w"></span>
 
-<span class="nt">binderhub</span><span class="p">:</span>
-  <span class="nt">config</span><span class="p">:</span>
-    <span class="nt">BinderHub</span><span class="p">:</span>
-      <span class="nt">image_prefix</span><span class="p">:</span> <span class="s">&quot;IMAGE_PREFIX&quot;</span>
-      <span class="nt">hub_url</span><span class="p">:</span> <span class="s">&quot;http://HUB_URL&quot;</span>
+<span class="nt">binderhub</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">BinderHub</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">image_prefix</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;IMAGE_PREFIX&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="nt">hub_url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://HUB_URL&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -726,18 +882,18 @@ Add the <a class="reference external" href="https://github.com/helm/helm/blob/ma
 <div class="section" id="create-deploy-prod-template-yaml">
 <h3>Create <code class="docutils literal notranslate"><span class="pre">deploy/prod-template.yaml</span></code><a class="headerlink" href="#create-deploy-prod-template-yaml" title="Permalink to this headline">¶</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">deploy/prod-template.yaml</span></code> will include our secret values.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binderhub</span><span class="p">:</span>
-  <span class="nt">registry</span><span class="p">:</span>
-    <span class="nt">username</span><span class="p">:</span> <span class="s">&quot;{username}&quot;</span>
-    <span class="nt">password</span><span class="p">:</span> <span class="s">&quot;{password}&quot;</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">binderhub</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">registry</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{username}&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{password}&quot;</span><span class="w"></span>
 
-  <span class="nt">jupyterhub</span><span class="p">:</span>
-    <span class="nt">hub</span><span class="p">:</span>
-      <span class="nt">services</span><span class="p">:</span>
-        <span class="nt">binder</span><span class="p">:</span>
-          <span class="nt">apiToken</span><span class="p">:</span> <span class="s">&quot;{apiToken}&quot;</span>
-    <span class="nt">proxy</span><span class="p">:</span>
-      <span class="nt">secretToken</span><span class="p">:</span> <span class="s">&quot;{secretToken}&quot;</span>
+<span class="w">  </span><span class="nt">jupyterhub</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="nt">hub</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">services</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="nt">binder</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nt">apiToken</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{apiToken}&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nt">proxy</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nt">secretToken</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;{secretToken}&quot;</span><span class="w"></span>
 </pre></div>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">sed</span></code> commands can be used to populate this template and save it to <code class="docutils literal notranslate"><span class="pre">.secret/</span></code>.</p>
@@ -808,34 +964,42 @@ Add the <a class="reference external" href="https://github.com/helm/helm/blob/ma
 
               </div>
               
-        
-        <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="installing-binderhub.html" title="previous page">Installing BinderHub directly from the Helm Chart</a>
-    <a class='right-next' id="next-link" href="connect-container-registry.html" title="next page">Connect a Container Registry</a>
-
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="installing-binderhub.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Installing BinderHub directly from the Helm Chart</p>
         </div>
-        
+    </a>
+    <a class='right-next' id="next-link" href="connect-container-registry.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Connect a Container Registry</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
         </div>
     </div>
-    <footer class="footer mt-5 mt-md-0">
-    <div class="container">
-      <p>
-        
-          By Sarah Gibson<br/>
-        
-            &copy; Copyright 2020.<br/>
-      </p>
-    </div>
-  </footer>
+    <footer class="footer">
+  <p>
+    
+      By Sarah Gibson<br/>
+    
+        &copy; Copyright 2020.<br/>
+  </p>
+</footer>
 </main>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>
